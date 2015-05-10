@@ -1,7 +1,7 @@
 #include "qserver.h"
 
-QServer::QServer(QWidget *parent, Qt::WFlags flags)
-	: QMainWindow(parent, flags) , m_server(this)
+QServer::QServer(QWidget *parent)
+    : QMainWindow(parent) , m_server(this)
 {
 	ui.setupUi(this);
 
@@ -21,7 +21,7 @@ QServer::QServer(QWidget *parent, Qt::WFlags flags)
 QServer::~QServer()
 {
 	//Delete stored sockets
-	for each (QLocalSocket* socket in connection_list)
+    for (const auto& socket : connection_list)
 	{
 		socket->close();
 		socket->deleteLater();
@@ -55,7 +55,7 @@ void QServer::readSocket()
 
 	//Data stream to easy read all data
 	QDataStream in(&block, QIODevice::ReadOnly);
-	in.setVersion(QDataStream::Qt_4_0);
+    in.setVersion(QDataStream::Qt_5_4);
 
 	while (!in.atEnd()) //loop needed cause some messages can come on a single packet
 	{
@@ -102,7 +102,7 @@ void QServer::send()
 	{
 		//Search for a socket on the connection list with the same descriptor
 		QLocalSocket* conection = 0;
-		for each (QLocalSocket* ptrSocket in connection_list)
+        for (const auto& ptrSocket : connection_list)
 		{
 			if(ptrSocket->socketDescriptor() == descriptor)
 			{
@@ -124,7 +124,7 @@ void QServer::send(QLocalSocket * socket, QString sms)
 			QByteArray block;
 			QDataStream out(&block, QIODevice::WriteOnly);
 
-			out.setVersion(QDataStream::Qt_4_0);
+            out.setVersion(QDataStream::Qt_5_4);
 			out << sms;
 			socket->write(block);
 		}

@@ -1,10 +1,8 @@
 #ifndef QSERVER_H
 #define QSERVER_H
 
-#include <QtGui/QMainWindow>
-#include <QLocalServer>
-#include <QLocalSocket>
-
+#include <QtGui>
+#include <QtNetwork>
 #include "ui_qserver.h"
 
 class QServer : public QMainWindow
@@ -12,7 +10,7 @@ class QServer : public QMainWindow
 	Q_OBJECT
 
 public:
-	QServer(QWidget *parent = 0, Qt::WFlags flags = 0);
+    QServer(QWidget *parent = 0);
 	~QServer();
 signals:
 	void sms(QString);
