@@ -2,7 +2,7 @@
 #define QCLIENT_H
 
 #include <QtGui>
-#include <QLocalSocket>
+#include <QtNetwork>
 
 #include "ui_qclient.h"
 
@@ -11,7 +11,7 @@ class QClient : public QMainWindow
 	Q_OBJECT
 
 public:
-	QClient(QWidget *parent = 0, Qt::WFlags flags = 0);
+    QClient(QWidget *parent = 0);
 	~QClient();
 signals:
 	void sms(QString);

@@ -1,7 +1,7 @@
 #include "qclient.h"
 
-QClient::QClient(QWidget *parent, Qt::WFlags flags)
-	: QMainWindow(parent, flags)
+QClient::QClient(QWidget *parent)
+    : QMainWindow(parent)
 {
 	ui.setupUi(this);
 	conection = new QLocalSocket(this);
@@ -24,7 +24,7 @@ void QClient::readSocket()
 {
 	QByteArray block = conection->readAll();
 	QDataStream in(&block, QIODevice::ReadOnly);
-	in.setVersion(QDataStream::Qt_4_0);
+    in.setVersion(QDataStream::Qt_5_4);
 	while (!in.atEnd())
 	{
 		QString receiveString;
@@ -57,7 +57,7 @@ void QClient::send()
 			QByteArray block;
 			QDataStream out(&block, QIODevice::WriteOnly);
 
-			out.setVersion(QDataStream::Qt_4_0);
+            out.setVersion(QDataStream::Qt_5_4);
 			out << str;
 			conection->write(block);
 		}
